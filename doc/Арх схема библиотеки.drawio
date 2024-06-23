@@ -1,0 +1,55 @@
+<mxfile host="app.diagrams.net" modified="2024-06-22T15:02:33.162Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36" etag="12f1SaLPjifdai4myQh_" version="24.6.2" type="device">
+  <diagram name="Страница — 1" id="cYNarqVfThhQre57O2x1">
+    <mxGraphModel dx="1674" dy="746" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-5" value="DB&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;" vertex="1" parent="1">
+          <mxGeometry x="70" y="80" width="660" height="540" as="geometry" />
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-6" value="&lt;b&gt;Книга&lt;/b&gt;&lt;div&gt;ID&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;Название&lt;/span&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;год&lt;/div&gt;&lt;div&gt;Количество&lt;/div&gt;&lt;div&gt;...&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="220" y="285" width="120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-8" value="&lt;b&gt;Авторы&lt;/b&gt;&lt;div&gt;ID&lt;/div&gt;&lt;div&gt;Имя&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="370" y="285" width="120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-9" value="&lt;b&gt;Читатель&lt;/b&gt;&lt;div&gt;ID&lt;br&gt;&lt;div&gt;Имя&lt;/div&gt;&lt;div&gt;пол&amp;nbsp;&lt;/div&gt;&lt;div&gt;возраст&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="540" y="275" width="120" height="130" as="geometry" />
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-11" value="&lt;b&gt;Выданные книги&lt;/b&gt;&lt;div&gt;ID Читатель&lt;/div&gt;&lt;div&gt;ID Книги&lt;/div&gt;&lt;div&gt;Дата выдачи&lt;/div&gt;&lt;div&gt;Дата сдачи&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="300" y="455" width="120" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-12" value="" style="endArrow=classic;html=1;strokeWidth=1;rounded=0;" edge="1" parent="1" source="nMPOv5_x7EnpYe-xZ0Xz-11" target="nMPOv5_x7EnpYe-xZ0Xz-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="260" y="455" as="sourcePoint" />
+            <mxPoint x="310" y="405" as="targetPoint" />
+            <Array as="points">
+              <mxPoint x="320" y="425" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-13" value="" style="endArrow=classic;html=1;strokeWidth=1;rounded=0;" edge="1" parent="1" source="nMPOv5_x7EnpYe-xZ0Xz-11" target="nMPOv5_x7EnpYe-xZ0Xz-9">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="510" y="475" as="sourcePoint" />
+            <mxPoint x="560" y="425" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-15" value="&lt;b&gt;Связь авторы книги&lt;/b&gt;&lt;div&gt;ID книги&lt;/div&gt;&lt;div&gt;ID Автор&lt;/div&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="270" y="190" width="150" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-16" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="nMPOv5_x7EnpYe-xZ0Xz-15" target="nMPOv5_x7EnpYe-xZ0Xz-6">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="210" y="285" as="sourcePoint" />
+            <mxPoint x="260" y="235" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="nMPOv5_x7EnpYe-xZ0Xz-17" value="" style="endArrow=classic;html=1;rounded=0;" edge="1" parent="1" source="nMPOv5_x7EnpYe-xZ0Xz-15" target="nMPOv5_x7EnpYe-xZ0Xz-8">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="190" y="305" as="sourcePoint" />
+            <mxPoint x="240" y="255" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
