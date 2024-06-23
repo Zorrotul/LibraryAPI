@@ -1,0 +1,13 @@
+spring:
+  jpa:
+    database: h2
+    show-sql: true
+  datasource:
+    url: jdbc:h2:file:/data/library-api
+    username: sa
+    password: 123
+    driverClassName: org.h2.Driver
+    jpa:
+      database-platform: org.hibernate.dialect.H2Dialect
+  h2:
+    console.enabled: true
