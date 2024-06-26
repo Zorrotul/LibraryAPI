@@ -4,7 +4,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ru.ftc.library.api.model.Reader;
 import ru.ftc.library.api.service.ReaderService;
@@ -30,7 +29,7 @@ public class ReadersController {
     @ResponseStatus(HttpStatus.OK)
     List<Reader> getBoys() {
         log.info("getBoys <-");
-        return  readerService.getAllBoys();
+        return readerService.getAllBoys();
     }
 
 }

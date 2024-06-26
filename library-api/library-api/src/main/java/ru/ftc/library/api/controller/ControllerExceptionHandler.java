@@ -7,6 +7,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import ru.ftc.library.api.error.AuthorCreationException;
 import ru.ftc.library.api.error.ReaderCreationException;
 import ru.ftc.library.api.model.ErrorResponse;
 
@@ -23,6 +24,16 @@ public class ControllerExceptionHandler {
                 .status(HttpStatus.CONFLICT)
                 .body(ErrorResponse.builder()
                         .errorMessage("reader already exists")
+                        .timestamp(LocalDateTime.now())
+                        .build());
+    }
+
+    @ExceptionHandler(AuthorCreationException.class)
+    public ResponseEntity<ErrorResponse> AuthorAlreadyExists(AuthorCreationException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ErrorResponse.builder()
+                        .errorMessage("author already exists")
                         .timestamp(LocalDateTime.now())
                         .build());
     }
