@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ftc.library.api.error.AuthorCreationException;
 import ru.ftc.library.api.jpa.AuthorEntity;
 import ru.ftc.library.api.jpa.AuthorRepository;
-import ru.ftc.library.api.model.Author;
+import ru.ftc.library.api.model.entities.Author;
 
 import java.util.List;
 import java.util.stream.Collectors;

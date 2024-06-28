@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.ftc.library.api.error.AuthorCreationException;
+import ru.ftc.library.api.error.NoSuchBookException;
 import ru.ftc.library.api.error.ReaderCreationException;
 import ru.ftc.library.api.model.ErrorResponse;
 
@@ -55,4 +56,15 @@ public class ControllerExceptionHandler {
                         .timestamp(LocalDateTime.now())
                         .build());
     }
+
+    @ExceptionHandler(NoSuchBookException.class)
+    public ResponseEntity<ErrorResponse> noSuchBook(NoSuchBookException e) {
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
+                .body(ErrorResponse.builder()
+                        .errorMessage(e.getMessage())
+                        .timestamp(LocalDateTime.now())
+                        .build());
+    }
+
 }

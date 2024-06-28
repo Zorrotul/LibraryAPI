@@ -1,6 +1,6 @@
 package ru.ftc.library.api.service;
 
-import ru.ftc.library.api.model.Reader;
+import ru.ftc.library.api.model.entities.Reader;
 
 import java.util.List;
 

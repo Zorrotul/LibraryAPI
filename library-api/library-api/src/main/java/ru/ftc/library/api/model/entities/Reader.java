@@ -1,4 +1,4 @@
-package ru.ftc.library.api.model;
+package ru.ftc.library.api.model.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;
@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.ftc.library.api.model.Sex;
 
 import java.time.LocalDate;
 

@@ -8,7 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ftc.library.api.error.ReaderCreationException;
 import ru.ftc.library.api.jpa.ReaderEntity;
 import ru.ftc.library.api.jpa.ReaderRepository;
-import ru.ftc.library.api.model.Reader;
+import ru.ftc.library.api.model.entities.Reader;
 import ru.ftc.library.api.model.Sex;
 
 import java.util.List;

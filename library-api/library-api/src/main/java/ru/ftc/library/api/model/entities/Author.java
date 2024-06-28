@@ -1,4 +1,4 @@
-package ru.ftc.library.api.model;
+package ru.ftc.library.api.model.entities;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;

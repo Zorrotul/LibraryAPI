@@ -1,7 +1,6 @@
 package ru.ftc.library.api.service;
 
-import ru.ftc.library.api.jpa.AuthorEntity;
-import ru.ftc.library.api.model.Author;
+import ru.ftc.library.api.model.entities.Author;
 
 import java.util.List;
 
