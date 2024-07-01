@@ -16,6 +16,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
+@IdClass(BooksIssueJnKey.class)
 public class BooksIssueJnEntity{
 
     @Id
@@ -26,6 +27,7 @@ public class BooksIssueJnEntity{
     @Column(name = "BOOK_ID")
     private Long bookId;
 
+    @Id
     @Column(name = "DATE_OF_ISSUE")
     private LocalDate dateOfIssue;
 

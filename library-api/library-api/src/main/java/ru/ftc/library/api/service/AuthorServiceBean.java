@@ -28,7 +28,6 @@ public class AuthorServiceBean implements AuthorService {
                 .surname(newAuthor.getSurname())
                 .patronymic(newAuthor.getPatronymic())
                 .build();
-
         try {
             authorRepository.saveAndFlush(authorEntity);
         } catch (Exception e) {

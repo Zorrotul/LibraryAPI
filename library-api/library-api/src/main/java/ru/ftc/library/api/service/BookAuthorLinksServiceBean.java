@@ -44,17 +44,4 @@ public class BookAuthorLinksServiceBean implements BookAuthorLinksService {
         }
     }
 
-//    @Transactional(propagation = Propagation.REQUIRED)
-//    @Override
-//    public List<BookAuthorLinks> getAllBoys() {
-//        return bookAuthorLinksRepository.findAllBySex(Sex.M).stream()
-//                .map(r -> BookAuthorLinks.builder()
-//                        .name(r.getName())
-//                        .surname(r.getSurname())
-//                        .patronymic(r.getPatronymic())
-//                        .sex(r.getSex())
-//                        .birthday(r.getBirthday())
-//                        .build())
-//                .collect(Collectors.toList());
-//    }
 }
