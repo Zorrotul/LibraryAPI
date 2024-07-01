@@ -11,7 +11,7 @@ import ru.ftc.library.api.service.ReaderService;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Slf4j //logger
+@Slf4j
 @RestController
 @RequestMapping("/readers/")
 public class ReadersController {

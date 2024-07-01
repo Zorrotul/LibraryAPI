@@ -9,12 +9,9 @@ import ru.ftc.library.api.error.BookCreationException;
 import ru.ftc.library.api.error.NoSuchBookException;
 import ru.ftc.library.api.jpa.BookEntity;
 import ru.ftc.library.api.jpa.BookRepository;
-import ru.ftc.library.api.model.Sex;
 import ru.ftc.library.api.model.entities.Book;
 
-import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Slf4j
 @RequiredArgsConstructor
@@ -26,23 +23,29 @@ public class BookServiceBean implements BookService {
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public void addNewBookToLibrary(Book newBook) {
-        BookEntity bookEntity = BookEntity.builder()
-                .title(newBook.getTitle())
-                .dateOfOPublication(newBook.getDateOfOPublication())
-                .build();
-
         try {
+            BookEntity bookEntity = bookRepository.findByTitleAndDateOfOPublication(newBook.getTitle(), newBook.getDateOfOPublication())
+                    .map(book -> {
+                        book.setNumberOfOCopies(book.getNumberOfOCopies() + newBook.getNumberOfOCopies());
+                        return book;
+                    })
+                    .orElse(BookEntity.builder()
+                            .title(newBook.getTitle())
+                            .dateOfOPublication(newBook.getDateOfOPublication())
+                            .numberOfOCopies(newBook.getNumberOfOCopies())
+                            .build());
             bookRepository.saveAndFlush(bookEntity);
         } catch (Exception e) {
             log.error("Cant create new book = {}, cause: {}", newBook, e.getMessage(), e);
             throw new BookCreationException(e);
         }
+
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
     public Book getBookById(Long id) {
-        Optional<BookEntity> bookEntity = bookRepository.findBookById(id);
+        Optional<BookEntity> bookEntity = bookRepository.findById(id);
         log.info("pass optional\n");
         log.info("id: {}", id);
         return bookEntity
@@ -51,6 +54,6 @@ public class BookServiceBean implements BookService {
                         .dateOfOPublication(b.getDateOfOPublication())
                         .numberOfOCopies(b.getNumberOfOCopies())
                         .build())
-                .orElseThrow(()-> new NoSuchBookException("Book with id " + id + " not found"));
+                .orElseThrow(() -> new NoSuchBookException("Book with id " + id + " not found"));
     }
 }

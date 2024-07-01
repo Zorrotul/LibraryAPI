@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.data.domain.Persistable;
 
 import java.time.LocalDate;
 
@@ -15,7 +14,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class BookEntity implements Persistable<Long> {
+public class BookEntity {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "BOOKS_SQ")
     @SequenceGenerator(name = "BOOKS_SQ", sequenceName = "BOOKS_SQ", allocationSize = 1)
@@ -32,9 +31,4 @@ public class BookEntity implements Persistable<Long> {
     @Column(name = "NUMBER_OF_COPIES")
     private Integer numberOfOCopies;
 
-
-    @Override
-    public boolean isNew() {
-        return true;
-    }
 }

@@ -6,11 +6,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import ru.ftc.library.api.error.BookCreationException;
 import ru.ftc.library.api.model.entities.Book;
 import ru.ftc.library.api.service.BookService;
 
 @RequiredArgsConstructor
-@Slf4j //logger
+@Slf4j
 @RestController
 @RequestMapping("/books/")
 public class BooksController {
@@ -32,7 +33,7 @@ public class BooksController {
             Book book = bookService.getBookById(id);
             return new ResponseEntity<>(book, HttpStatus.OK);
         } catch (RuntimeException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            throw new BookCreationException(e);
         }
     }
 
