@@ -26,7 +26,7 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
 
         BooksIssueJnEntity booksIssueJnEntity;
         try {
-            if (readerRepository.findById(newJournal.getReaderId()).isPresent()) {
+            //if (readerRepository.findById(newJournal.getReaderId()).isPresent()) {
                 if (bookRepository.findById(newJournal.getBookId())
                         .filter(bookEntity -> bookEntity.getNumberOfOCopies()>0).isPresent()) {
                     booksIssueJnEntity = BooksIssueJnEntity.builder()
@@ -36,18 +36,19 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
                             .build();
 
                     booksIssueJnRepository.saveAndFlush(booksIssueJnEntity);
+
                 } else {
                     log.error("Cant give this reader the book cause: the library doesn't have book with this id: {} ", newJournal.getBookId());
                     throw new BooksIssueJnCreationException(
                             String.format("Cant give this reader the book cause: the library doesn't have book with this id: %s ", newJournal.getBookId()));
                 }
-            } else {
-                log.error("Cant give this reader the book cause: reader with this id: {} does not exist", newJournal.getReaderId());
-                throw new BooksIssueJnCreationException(
-                        String.format("Cant give this reader the book cause: reader with this id: %s does not exist", newJournal.getReaderId()));
-            }
+//            } else {
+//                log.error("Cant give this reader the book cause: reader with this id: {} does not exist", newJournal.getReaderId());
+//                throw new BooksIssueJnCreationException(
+//                        String.format("Cant give this reader the book cause: reader with this id: %s does not exist", newJournal.getReaderId()));
+            //}
         } catch (Exception e) {
-            log.error("Cant create new booksIssueJn = {}, cause: {}", newJournal, e.getMessage(), e);
+            log.error("Cant give this reader the book cause: the library doesn't have book with this id: {}... ", newJournal, e);
             throw new BooksIssueJnCreationException(e);
         }
 

@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
 import ru.ftc.library.api.model.Sex;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(BooksIssueJnKey.class)
+@IdClass(BooksIssueJnEntity.BooksIssueJnKey.class)
 public class BooksIssueJnEntity{
 
     @Id
@@ -33,5 +34,14 @@ public class BooksIssueJnEntity{
 
     @Column(name = "DATE_OF_RETURN")
     private LocalDate dateOfReturn;
+
+    public class BooksIssueJnKey implements Serializable {
+
+        private Long readerId;
+
+        private Long bookId;
+
+        private LocalDate dateOfIssue;
+    }
 
 }

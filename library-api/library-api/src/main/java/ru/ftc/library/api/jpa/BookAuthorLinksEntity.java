@@ -6,13 +6,15 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.io.Serializable;
+
 @Data
 @Builder
 @Table(name = "BOOK_AUTHOR_LINKS")
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@IdClass(BookAuthorLinksKey.class)
+@IdClass(BookAuthorLinksEntity.BookAuthorLinksKey.class)
 public class BookAuthorLinksEntity{
 
     @Id
@@ -22,5 +24,12 @@ public class BookAuthorLinksEntity{
     @Id
     @Column(name = "AUTHOR_ID")
     private Long authorId;
+
+
+    public class BookAuthorLinksKey implements Serializable {
+        private Long bookId;
+        private Long authorId;
+
+    }
 
 }

@@ -26,15 +26,7 @@ public class ControllerExceptionHandler {
                         .build());
     }
 
-//    @ExceptionHandler(AuthorCreationException.class)
-//    public ResponseEntity<ErrorResponse> AuthorAlreadyExists(AuthorCreationException e) {
-//        return ResponseEntity
-//                .status(HttpStatus.CONFLICT)
-//                .body(ErrorResponse.builder()
-//                        .errorMessage("author already exists")
-//                        .timestamp(LocalDateTime.now())
-//                        .build());
-//    }
+
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> invalidRequest(MethodArgumentNotValidException ex) {
@@ -53,15 +45,5 @@ public class ControllerExceptionHandler {
                         .timestamp(LocalDateTime.now())
                         .build());
     }
-
-//    @ExceptionHandler(NoSuchBookException.class)
-//    public ResponseEntity<ErrorResponse> noSuchBook(NoSuchBookException e) {
-//        return ResponseEntity
-//                .status(HttpStatus.CONFLICT)
-//                .body(ErrorResponse.builder()
-//                        .errorMessage(e.getMessage())
-//                        .timestamp(LocalDateTime.now())
-//                        .build());
-//    }
 
 }
