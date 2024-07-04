@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Persistable;
 
 import java.io.Serializable;
 
@@ -15,7 +16,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(BookAuthorLinksEntity.BookAuthorLinksKey.class)
-public class BookAuthorLinksEntity{
+public class BookAuthorLinksEntity implements Persistable<BookAuthorLinksEntity.BookAuthorLinksKey> {
 
     @Id
     @Column(name = "BOOK_ID")
@@ -26,10 +27,19 @@ public class BookAuthorLinksEntity{
     private Long authorId;
 
 
-    public class BookAuthorLinksKey implements Serializable {
+    public static class BookAuthorLinksKey implements Serializable {
         private Long bookId;
         private Long authorId;
+    }
 
+    @Override
+    public BookAuthorLinksKey getId() {
+        return null;
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
     }
 
 }

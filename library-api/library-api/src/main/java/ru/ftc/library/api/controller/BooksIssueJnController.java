@@ -23,6 +23,13 @@ public class BooksIssueJnController {
         booksIssueJnsService.createNewBooksIssueJn(newBooksIssueJn);
     }
 
+    @PostMapping("/returnBook/")
+    @ResponseStatus(HttpStatus.OK)
+    void returnBook(@RequestBody @Valid BooksIssueJn newBooksIssueJn) {
+        log.info("returnBook <- returnedBook = {}", newBooksIssueJn.getBookId());
+        booksIssueJnsService.returnBook(newBooksIssueJn);
+    }
+
 }
 
 

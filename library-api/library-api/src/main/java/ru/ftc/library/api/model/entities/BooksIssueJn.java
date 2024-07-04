@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 import ru.ftc.library.api.model.Sex;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -24,10 +25,10 @@ public class BooksIssueJn {
     private Long readerId;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfIssue;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dateOfIssue;
 
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate dateOfReturn;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dateOfReturn;
 
 }

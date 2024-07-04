@@ -10,6 +10,7 @@ import ru.ftc.library.api.model.Sex;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @Builder
@@ -18,7 +19,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(BooksIssueJnEntity.BooksIssueJnKey.class)
-public class BooksIssueJnEntity{
+public class BooksIssueJnEntity implements Persistable<BooksIssueJnEntity.BooksIssueJnKey>{
 
     @Id
     @Column(name = "READER_ID")
@@ -30,18 +31,30 @@ public class BooksIssueJnEntity{
 
     @Id
     @Column(name = "DATE_OF_ISSUE")
-    private LocalDate dateOfIssue;
+    private LocalDateTime dateOfIssue;
 
     @Column(name = "DATE_OF_RETURN")
-    private LocalDate dateOfReturn;
+    private LocalDateTime dateOfReturn;
 
-    public class BooksIssueJnKey implements Serializable {
+    @Override
+    public BooksIssueJnKey getId() {
+        return null;
+    }
+
+    @Override
+    public boolean isNew() {
+        return true;
+    }
+
+    public static class BooksIssueJnKey implements Serializable {
 
         private Long readerId;
 
         private Long bookId;
 
-        private LocalDate dateOfIssue;
+        private LocalDateTime dateOfIssue;
     }
+
+
 
 }
