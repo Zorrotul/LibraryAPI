@@ -11,6 +11,7 @@ import ru.ftc.library.api.service.AuthorService;
 
 import java.util.List;
 
+//удалить
 @RequiredArgsConstructor
 @Slf4j
 @RestController

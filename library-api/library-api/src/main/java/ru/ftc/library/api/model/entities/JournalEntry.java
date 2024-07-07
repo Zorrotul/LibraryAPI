@@ -7,15 +7,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.ftc.library.api.model.Sex;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Reader {
+public class JournalEntry {
+
 
     @NotBlank
     private String name;
@@ -26,11 +26,13 @@ public class Reader {
     @NotBlank
     private String patronymic;
 
-    @NotNull
-    private Sex sex;
+    @NotBlank
+    private String title;
 
     @NotNull
-    @JsonFormat(pattern = "yyyy-MM-dd")
-    private LocalDate birthday;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dateOfIssue;
 
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime dateOfReturn;
 }

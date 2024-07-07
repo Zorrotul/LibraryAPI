@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BookAuthorLinks {
-
+public class BookAuthorLinks {//сделать автомат зоздание
+//удалить
     @NotNull
     private Long bookId;
 

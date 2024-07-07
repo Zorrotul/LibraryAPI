@@ -36,6 +36,14 @@ public class BooksIssueJnEntity implements Persistable<BooksIssueJnEntity.BooksI
     @Column(name = "DATE_OF_RETURN")
     private LocalDateTime dateOfReturn;
 
+    @OneToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "READER_ID", referencedColumnName = "id")
+    private ReaderEntity readerEntity;
+
+    @OneToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "BOOK_ID", referencedColumnName = "id")
+    private BookEntity bookEntity;
+
     @Override
     public BooksIssueJnKey getId() {
         return null;

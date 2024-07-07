@@ -26,17 +26,10 @@ public class BookAuthorLinksServiceBean implements BookAuthorLinksService {
     public void createNewBookAuthorLink(BookAuthorLinks newBookAuthorLinks) {
         BookAuthorLinksEntity bookAuthorLinksEntity;
         try {
-            if (bookRepository.findById(newBookAuthorLinks.getBookId()).isPresent()
-                    && authorRepository.findById(newBookAuthorLinks.getAuthorId()).isPresent()) {
                 bookAuthorLinksEntity = BookAuthorLinksEntity.builder()
                         .bookId(newBookAuthorLinks.getBookId())
                         .authorId(newBookAuthorLinks.getAuthorId())
                         .build();
-            } else {
-                log.error("Cant create new bookAuthorLinks = {}, cause: one of them not exist", newBookAuthorLinks);
-                throw new BookAuthorLinksCreationException(
-                        String.format("Cant create new bookAuthorLinks = %s, cause: one of them not exist", newBookAuthorLinks));
-            }
             bookAuthorLinksRepository.saveAndFlush(bookAuthorLinksEntity);
         } catch (Exception e) {
             log.error("Cant create new bookAuthorLinks = {}, cause: {}", newBookAuthorLinks, e.getMessage(), e);
