@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ftc.library.api.error.BookCreationException;
+import ru.ftc.library.api.model.entities.AddBookRequest;
 import ru.ftc.library.api.model.entities.Book;
 import ru.ftc.library.api.service.BookService;
 
@@ -20,7 +21,7 @@ public class BooksController {
 
     @PostMapping("/addBook/")
     @ResponseStatus(HttpStatus.CREATED)
-    void addBook(@RequestBody @Valid Book newBook) {
+    void addBook(@RequestBody @Valid AddBookRequest newBook) {
         log.info("addBook <- newBook = {}", newBook);
         bookService.addNewBookToLibrary(newBook);
     }

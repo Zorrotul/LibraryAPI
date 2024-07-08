@@ -38,6 +38,23 @@ public class AuthorServiceBean implements AuthorService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
+    public Long createNewAuthorAndGetId(Author newAuthor) {
+        AuthorEntity authorEntity = AuthorEntity.builder()
+                .name(newAuthor.getName())
+                .surname(newAuthor.getSurname())
+                .patronymic(newAuthor.getPatronymic())
+                .build();
+        try {
+            authorRepository.saveAndFlush(authorEntity);
+            return authorRepository.findByNameAndSurnameAndPatronymic(authorEntity.getName(),authorEntity.getSurname(),authorEntity.getPatronymic()).get().getId();
+        } catch (Exception e) {
+            log.error("Cant create new author = {}, cause: {}", newAuthor, e.getMessage(), e);
+            throw new AuthorCreationException(e);
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
     public List<Author> getAllAuthors() {
         return authorRepository.getAuthors().stream()
                 .map(a -> Author.builder()
