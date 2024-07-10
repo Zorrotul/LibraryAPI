@@ -6,5 +6,7 @@ public class BooksIssueJnCreationException extends EntityCreationException {
         super(cause);
     }
 
-    public BooksIssueJnCreationException(String message){super(message);}
+    public BooksIssueJnCreationException(String message) {
+        super(message);
+    }
 }

@@ -74,13 +74,14 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
         Optional<BookEntity> book = bookRepository.findById(journalIssue.getBookId());
 
         try {
-            if (booksIssueJnEntity.isPresent()) {//ifpreserntorelse
-                booksIssueJnEntity.get().setDateOfReturn(LocalDateTime.now());
-            } else {
-                log.error("Cant return book which you do not take id book: {} ", journalIssue.getBookId());
-                throw new BooksIssueJnCreationException(
-                        String.format("Cant return book which you do not take id book: %s ", journalIssue.getBookId()));
-            }
+            booksIssueJnEntity.ifPresentOrElse(issie -> {
+                        issie.setDateOfReturn(LocalDateTime.now());
+                    },
+                    () -> {
+                        throw new BooksIssueJnCreationException(
+                                String.format("Cant return book which you do not take id book: %s ", journalIssue.getBookId()));
+                    }
+            );
 
             booksIssueJnRepository.saveAndFlush(booksIssueJnEntity.get());
             book.map(bookEntity -> {

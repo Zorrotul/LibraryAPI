@@ -6,5 +6,6 @@ import java.util.List;
 
 public interface ReaderService {
     void createNewReader(Reader newReader);
+
     List<Reader> getAllBoys();
 }

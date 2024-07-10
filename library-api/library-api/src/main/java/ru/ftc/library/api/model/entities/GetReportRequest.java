@@ -25,7 +25,7 @@ public class GetReportRequest {
     private LocalDate dateTo;
 
     @AssertTrue(message = "Дебич")
-    public boolean isDateToValid(){
+    public boolean isDateToValid() {
         return dateFrom.isBefore(dateTo);
     }
 

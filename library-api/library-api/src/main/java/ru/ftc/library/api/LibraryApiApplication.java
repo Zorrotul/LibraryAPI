@@ -12,8 +12,8 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 @SpringBootApplication
 public class LibraryApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(LibraryApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(LibraryApiApplication.class, args);
+    }
 
 }

@@ -6,5 +6,7 @@ public class BookAuthorLinksCreationException extends EntityCreationException {
         super(cause);
     }
 
-    public BookAuthorLinksCreationException(String message){super(message);}
+    public BookAuthorLinksCreationException(String message) {
+        super(message);
+    }
 }

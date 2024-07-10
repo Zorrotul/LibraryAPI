@@ -6,5 +6,7 @@ public class NoSuchBookException extends EntityCreationException {
         super(cause);
     }
 
-    public NoSuchBookException(String message){super(message);}
+    public NoSuchBookException(String message) {
+        super(message);
+    }
 }

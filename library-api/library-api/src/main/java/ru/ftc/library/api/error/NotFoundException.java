@@ -1,6 +1,6 @@
 package ru.ftc.library.api.error;
 
-public abstract class NotFoundException extends RuntimeException{
+public abstract class NotFoundException extends RuntimeException {
     public NotFoundException(Throwable cause) {
         super(cause);
     }

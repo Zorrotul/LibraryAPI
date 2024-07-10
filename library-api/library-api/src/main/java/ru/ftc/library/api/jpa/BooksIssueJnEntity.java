@@ -6,10 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
-import ru.ftc.library.api.model.Sex;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Data
@@ -19,7 +17,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @IdClass(BooksIssueJnEntity.BooksIssueJnKey.class)
-public class BooksIssueJnEntity implements Persistable<BooksIssueJnEntity.BooksIssueJnKey>{
+public class BooksIssueJnEntity implements Persistable<BooksIssueJnEntity.BooksIssueJnKey> {
 
     @Id
     @Column(name = "READER_ID")
@@ -62,7 +60,6 @@ public class BooksIssueJnEntity implements Persistable<BooksIssueJnEntity.BooksI
 
         private LocalDateTime dateOfIssue;
     }
-
 
 
 }

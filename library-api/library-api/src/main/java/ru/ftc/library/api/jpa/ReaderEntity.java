@@ -1,7 +1,10 @@
 package ru.ftc.library.api.jpa;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Persistable;
 import ru.ftc.library.api.model.Sex;
 
@@ -13,7 +16,7 @@ import java.time.LocalDate;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-public class ReaderEntity implements Persistable<Long>{
+public class ReaderEntity implements Persistable<Long> {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "READERS_SQ")
     @SequenceGenerator(name = "READERS_SQ", sequenceName = "READERS_SQ", allocationSize = 1)

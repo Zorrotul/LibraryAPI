@@ -8,10 +8,8 @@ import org.springframework.web.bind.annotation.*;
 import ru.ftc.library.api.jpa.BooksIssueJnEntity;
 import ru.ftc.library.api.model.entities.BooksIssueJn;
 import ru.ftc.library.api.model.entities.GetReportRequest;
-import ru.ftc.library.api.model.entities.JournalEntry;
 import ru.ftc.library.api.service.BooksIssueJnService;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @RequiredArgsConstructor
