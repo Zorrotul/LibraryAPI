@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class BooksIssueJn {
+public class BooksIssueJnResponse {
 
     @NotNull
     private Long bookId;

@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import ru.ftc.library.api.error.BooksIssueJnCreationException;
 import ru.ftc.library.api.jpa.*;
-import ru.ftc.library.api.model.entities.BooksIssueJn;
+import ru.ftc.library.api.model.entities.BooksIssueJnResponse;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -28,7 +28,7 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void createNewBooksIssueJn(BooksIssueJn newJournal) {
+    public void createNewBooksIssueJn(BooksIssueJnResponse newJournal) {
 
         BooksIssueJnEntity booksIssueJnEntity;
         Optional<BookEntity> book = bookRepository.findById(newJournal.getBookId());
@@ -63,7 +63,7 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void returnBook(BooksIssueJn journalIssue) {
+    public void returnBook(BooksIssueJnResponse journalIssue) {
 
         Optional<BooksIssueJnEntity> booksIssueJnEntity = booksIssueJnRepository
                 .findAllByReaderIdAndBookId(journalIssue.getReaderId(), journalIssue.getBookId())

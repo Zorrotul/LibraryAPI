@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.ftc.library.api.jpa.BooksIssueJnEntity;
-import ru.ftc.library.api.model.entities.BooksIssueJn;
+import ru.ftc.library.api.model.entities.BooksIssueJnResponse;
 import ru.ftc.library.api.model.entities.GetReportRequest;
 import ru.ftc.library.api.service.BooksIssueJnService;
 
@@ -22,16 +22,16 @@ public class BooksIssueJnController {
 
     @PostMapping("/addBooksIssueJn/")
     @ResponseStatus(HttpStatus.CREATED)
-    void addBooksIssueJn(@RequestBody @Valid BooksIssueJn newBooksIssueJn) {
-        log.info("addBooksIssueJn <- newBooksIssueJn = {}", newBooksIssueJn);
-        booksIssueJnsService.createNewBooksIssueJn(newBooksIssueJn);
+    void addBooksIssueJn(@RequestBody @Valid BooksIssueJnResponse newBooksIssueJnResponse) {
+        log.info("addBooksIssueJn <- newBooksIssueJn = {}", newBooksIssueJnResponse);
+        booksIssueJnsService.createNewBooksIssueJn(newBooksIssueJnResponse);
     }
 
     @PostMapping("/returnBook/")
     @ResponseStatus(HttpStatus.OK)
-    void returnBook(@RequestBody @Valid BooksIssueJn newBooksIssueJn) {//Скорее всего тут нужно передавать только ID
-        log.info("returnBook <- returnedBook = {}", newBooksIssueJn.getBookId());
-        booksIssueJnsService.returnBook(newBooksIssueJn);
+    void returnBook(@RequestBody @Valid BooksIssueJnResponse newBooksIssueJnResponse) {//Скорее всего тут нужно передавать только ID
+        log.info("returnBook <- returnedBook = {}", newBooksIssueJnResponse.getBookId());
+        booksIssueJnsService.returnBook(newBooksIssueJnResponse);
     }
 
     @GetMapping("/getReport/")
