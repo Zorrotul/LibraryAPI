@@ -24,14 +24,6 @@ public class ReadersController {
         log.info("addReader <- newReader = {}", newReader);
         readerService.createNewReader(newReader);
     }
-
-    @GetMapping("/getBoys/")
-    @ResponseStatus(HttpStatus.OK)
-    List<Reader> getBoys() {
-        log.info("getBoys <-");
-        return readerService.getAllBoys();
-    }
-
 }
 
 

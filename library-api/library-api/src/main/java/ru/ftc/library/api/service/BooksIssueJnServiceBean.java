@@ -5,9 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import ru.ftc.library.api.error.BookCreationException;
 import ru.ftc.library.api.error.BooksIssueJnCreationException;
-import ru.ftc.library.api.jpa.*;
-import ru.ftc.library.api.model.entities.BooksIssueJnResponse;
+import ru.ftc.library.api.jpa.BooksIssueJnEntity;
+import ru.ftc.library.api.jpa.BooksIssueJnRepository;
+import ru.ftc.library.api.model.entities.UpdateJnIssueRequest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,49 +23,36 @@ import java.util.Optional;
 public class BooksIssueJnServiceBean implements BooksIssueJnService {
 
     private final BooksIssueJnRepository booksIssueJnRepository;
-    private final ReaderRepository readerRepository;
-    private final BookRepository bookRepository;
+    private final BookService bookService;
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void createNewBooksIssueJn(BooksIssueJnResponse newJournal) {
+    public void createNewBooksIssueJn(UpdateJnIssueRequest newJournal) {
 
         BooksIssueJnEntity booksIssueJnEntity;
-        Optional<BookEntity> book = bookRepository.findById(newJournal.getBookId());
         try {
-            if (book
-                    .filter(bookEntity -> bookEntity.getNumberOfOCopies() > 0).isPresent()) {
-                booksIssueJnEntity = BooksIssueJnEntity.builder()
-                        .bookId(newJournal.getBookId())
-                        .readerId(newJournal.getReaderId())
-                        .dateOfIssue(LocalDateTime.now())
-                        .build();
+            bookService.removeOneBookCopyById(newJournal.getBookId());
+            booksIssueJnEntity = BooksIssueJnEntity.builder()
+                    .bookId(newJournal.getBookId())
+                    .readerId(newJournal.getReaderId())
+                    .dateOfIssue(LocalDateTime.now())
+                    .build();
 
-                booksIssueJnRepository.saveAndFlush(booksIssueJnEntity);
-
-                book.map(bookEntity -> {
-                    bookEntity.setNumberOfOCopies(bookEntity.getNumberOfOCopies() - 1);
-                    return bookEntity;
-                });
-
-            } else {
-                log.error("Cant give this reader the book cause: the library doesn't have book with this id: {} ", newJournal.getBookId());
-                throw new BooksIssueJnCreationException(
-                        String.format("Cant give this reader the book cause: the library doesn't have book with this id: %s ", newJournal.getBookId()));
-            }
-
+            booksIssueJnRepository.saveAndFlush(booksIssueJnEntity);
+        } catch (BookCreationException e) {
+            log.error(e.getMessage(), newJournal);
+            throw new BooksIssueJnCreationException(e);
         } catch (Exception e) {
             log.error("Cant give this reader the book cause: the library doesn't have book with this id: {}... ", newJournal, e);
             throw new BooksIssueJnCreationException(e);
         }
-
     }
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void returnBook(BooksIssueJnResponse journalIssue) {
+    public void returnBook(UpdateJnIssueRequest journalIssue) {
 
         Optional<BooksIssueJnEntity> booksIssueJnEntity = booksIssueJnRepository
                 .findAllByReaderIdAndBookId(journalIssue.getReaderId(), journalIssue.getBookId())
@@ -71,7 +60,7 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
                 .filter(journal -> (journal.getDateOfReturn() == null))
                 .findFirst();
 
-        Optional<BookEntity> book = bookRepository.findById(journalIssue.getBookId());
+        bookService.returnBookToLibrary(journalIssue.getBookId());
 
         try {
             booksIssueJnEntity.ifPresentOrElse(issie -> {
@@ -82,13 +71,6 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
                                 String.format("Cant return book which you do not take id book: %s ", journalIssue.getBookId()));
                     }
             );
-
-            booksIssueJnRepository.saveAndFlush(booksIssueJnEntity.get());
-            book.map(bookEntity -> {
-                        bookEntity.setNumberOfOCopies(bookEntity.getNumberOfOCopies() + 1);
-                        return bookEntity;
-                    })
-                    .ifPresent(bookRepository::saveAndFlush);
         } catch (Exception e) {
             log.error(e.getMessage());
             throw new BooksIssueJnCreationException(e);

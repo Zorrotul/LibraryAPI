@@ -35,11 +35,11 @@ public class BooksIssueJnEntity implements Persistable<BooksIssueJnEntity.BooksI
     private LocalDateTime dateOfReturn;
 
     @OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "READER_ID", referencedColumnName = "id")
+    @JoinColumn(name = "READER_ID", referencedColumnName = "id", updatable = false, insertable = false)
     private ReaderEntity readerEntity;
 
     @OneToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "BOOK_ID", referencedColumnName = "id")
+    @JoinColumn(name = "BOOK_ID", referencedColumnName = "id", updatable = false, insertable = false)
     private BookEntity bookEntity;
 
     @Override

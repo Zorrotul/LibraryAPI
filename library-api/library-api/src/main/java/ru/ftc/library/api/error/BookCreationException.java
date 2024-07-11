@@ -6,4 +6,8 @@ public class BookCreationException extends EntityCreationException {
         super(cause);
     }
 
+    public BookCreationException(String message) {
+        super(message);
+    }
+
 }

@@ -6,7 +6,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.ftc.library.api.jpa.BooksIssueJnEntity;
-import ru.ftc.library.api.model.entities.BooksIssueJnResponse;
+import ru.ftc.library.api.model.entities.UpdateJnIssueRequest;
 import ru.ftc.library.api.model.entities.GetReportRequest;
 import ru.ftc.library.api.service.BooksIssueJnService;
 
@@ -18,27 +18,27 @@ import java.util.List;
 @RequestMapping("/booksIssueJn/")
 public class BooksIssueJnController {
 
-    private final BooksIssueJnService booksIssueJnsService;
+    private final BooksIssueJnService booksIssueJnService;
 
     @PostMapping("/addBooksIssueJn/")
     @ResponseStatus(HttpStatus.CREATED)
-    void addBooksIssueJn(@RequestBody @Valid BooksIssueJnResponse newBooksIssueJnResponse) {
-        log.info("addBooksIssueJn <- newBooksIssueJn = {}", newBooksIssueJnResponse);
-        booksIssueJnsService.createNewBooksIssueJn(newBooksIssueJnResponse);
+    void addBooksIssueJn(@RequestBody @Valid UpdateJnIssueRequest newJnIssue) {
+        log.info("addBooksIssueJn <- newBooksIssueJn = {}", newJnIssue);
+        booksIssueJnService.createNewBooksIssueJn(newJnIssue);
     }
 
     @PostMapping("/returnBook/")
     @ResponseStatus(HttpStatus.OK)
-    void returnBook(@RequestBody @Valid BooksIssueJnResponse newBooksIssueJnResponse) {//Скорее всего тут нужно передавать только ID
-        log.info("returnBook <- returnedBook = {}", newBooksIssueJnResponse.getBookId());
-        booksIssueJnsService.returnBook(newBooksIssueJnResponse);
+    void returnBook(@RequestBody @Valid UpdateJnIssueRequest newJnIssue) {//Скорее всего тут нужно передавать только ID
+        log.info("returnBook <- returnedBook = {}", newJnIssue.getBookId());
+        booksIssueJnService.returnBook(newJnIssue);
     }
 
     @GetMapping("/getReport/")
     @ResponseStatus(HttpStatus.OK)
-    List<BooksIssueJnEntity> returnBook(@RequestBody @Valid GetReportRequest reportRequest) {
+    List<BooksIssueJnEntity> getReport(@RequestBody @Valid GetReportRequest reportRequest) {
         log.info("getReport <- request = {}", reportRequest);
-        return booksIssueJnsService.getJournal(reportRequest.getDateFrom(), reportRequest.getDateTo());
+        return booksIssueJnService.getJournal(reportRequest.getDateFrom(), reportRequest.getDateTo());
     }
 
 }

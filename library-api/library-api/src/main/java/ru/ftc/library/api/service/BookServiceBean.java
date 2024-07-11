@@ -2,6 +2,7 @@ package ru.ftc.library.api.service;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.dao.DataAccessException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -109,5 +110,35 @@ public class BookServiceBean implements BookService {
                         .numberOfOCopies(b.getNumberOfOCopies())
                         .build())
                 .orElseThrow(() -> new NoSuchBookException("Book with id " + id + " not found"));
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void removeOneBookCopyById(Long bookId) {
+        try {
+            Optional<BookEntity> book = bookRepository.findById(bookId);
+            book.map(bookEntity -> {
+                bookEntity.setNumberOfOCopies(bookEntity.getNumberOfOCopies() - 1);
+                bookRepository.saveAndFlush(bookEntity);
+                return bookEntity;
+            }).orElseThrow(() -> new BookCreationException("No such book"));
+        } catch (DataAccessException e) {
+            throw new BookCreationException(String.format("No copies of the book = %s left in library", bookId));//TODO кидать другое исключение
+        }
+    }
+
+    @Transactional(propagation = Propagation.REQUIRED)
+    @Override
+    public void returnBookToLibrary(Long bookId){
+        try {
+            Optional<BookEntity> book = bookRepository.findById(bookId);
+            book.map(bookEntity -> {
+                        bookEntity.setNumberOfOCopies(bookEntity.getNumberOfOCopies() + 1);
+                        return bookEntity;
+                    })
+                    .ifPresent(bookRepository::saveAndFlush);
+        }catch (DataAccessException e){
+            throw new BookCreationException(String.format("returnBookToLibrary<- Cant return book to library", bookId));//TODO кидать другое исключение
+        }
     }
 }

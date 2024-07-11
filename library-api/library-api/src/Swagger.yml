@@ -1,0 +1,359 @@
+openapi: 3.0.3
+info:
+  title: Swagger Petstore - OpenAPI 3.0
+  description: |-
+  version: 1.0.11
+servers:
+  - url: localhost:8080/
+    description: library api
+tags:
+  - name: journal
+    description: Everything about library journal
+    externalDocs:
+      description: Find out more
+      url: http://swagger.io
+  - name: book
+    description: Operations with book
+
+paths:
+  /books/addBook/:
+    post:
+      tags:
+        - book
+      summary: Add a new book to library
+      description: Add a new book to library
+      operationId: addBook
+      requestBody:
+        description: Add a new book to library
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Book'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/BookEnt"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /booksIssueJn/addBooksIssueJn/:
+    post:
+      tags:
+        - journal
+      summary: get book from library
+      operationId: getBook
+      parameters:
+        - name: bookId
+          in: query
+          description: Id taken book
+          required: false
+          schema:
+            type: string
+        - name: readerId
+          in: query
+          description: Id reader who take book
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal'
+        '400':
+          description: Something wrong
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+  /booksIssueJn/returnBook/:
+    post:
+      tags:
+        - journal
+      summary: Return book to library
+      operationId: returnBook
+      parameters:
+        - name: bookId
+          in: query
+          description: Id taken book
+          required: false
+          schema:
+            type: string
+        - name: readerId
+          in: query
+          description: Id reader who take book
+          required: false
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Journal'
+        '400':
+          description: Something wrong
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+  /booksIssueJn/getReport/:
+    get:
+      tags:
+        - journal
+      summary: get report from journal
+      operationId: getReport
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReportRequest"
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalIssues'
+  /readers/addReader/:
+    post:
+      tags:
+        - reader
+      summary: Add a new reader to DB
+      operationId: addReader
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reader'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ReaderEnt"
+        '400':
+          description: error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    Report:
+      type: object
+      properties:
+        readerId:
+          type: integer
+          format: int64
+          example: 10
+        bookId:
+          type: integer
+          format: int64
+          example: 12
+        dateOfIssue:
+          type: string
+          format: date-time
+          example: 2024-07-05T13:59:04.235636
+        dateOfReturn:
+          type: string
+          format: date-time
+          example: 2024-07-05T13:59:04.235636
+    BookEnt:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        title:
+          type: string
+          example: Nos
+        dateOfOPublication:
+          type: string
+          format: date
+          example: 2024-07-05
+        numberOfOCopies:
+          type: integer
+          format: int64
+          example: 2
+        authors:
+          type: array
+          items:
+            $ref: "#/components/schemas/Author"
+    Book:
+      type: object
+      properties:
+        title:
+          type: string
+          example: Nos
+        dateOfOPublication:
+          type: string
+          format: date
+          example: 2024-07-05
+        numberOfOCopies:
+          type: integer
+          format: int64
+          example: 2
+        authors:
+          type: array
+          items:
+            $ref: "#/components/schemas/Author"
+    Books:
+      type: array
+      items:
+        $ref: "#/components/schemas/Book"
+    AuthorEnt:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 11
+        name:
+          type: string
+          example: Anton
+        surname:
+          type: string
+          example: Chehov
+        patronymic:
+          type: string
+          example: Pavlovich
+    Author:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Anton
+        surname:
+          type: string
+          example: Chehov
+        patronymic:
+          type: string
+          example: Pavlovich
+    Authors:
+      type: array
+      items:
+        $ref: "#/components/schemas/Author"
+    ReaderEnt:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Pip
+        surname:
+          type: string
+          example: Pop
+        patronymic:
+          type: string
+          example: Pap
+        Sex:
+          type: string
+          enum:
+            - M
+            - F
+        birthday:
+          type: string
+          format: date
+          example: 1996-06-12
+    Reader:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Pip
+        surname:
+          type: string
+          example: Pop
+        patronymic:
+          type: string
+          example: Pap
+        Sex:
+          type: string
+          enum:
+            - M
+            - F
+        birthday:
+          type: string
+          format: date
+          example: 1996-06-12
+    Error:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          example: 404
+
+        message:
+          type: string
+          example: Oups
+    Journal:
+      type: object
+      properties:
+        readerId:
+          type: integer
+          format: int64
+          example: 2
+        bookId:
+          type: integer
+          format: int64
+          example: 10
+        dateOfIssue:
+          type: string
+          format: date-time
+          example: 2024-07-05T13:59:04.235636
+        dateOfReturn:
+          type: string
+          format: date-time
+          example: 2024-07-05T13:59:04.235636
+        readersEntity:
+          type: array
+          items:
+            $ref: "#/components/schemas/Reader"
+        bookEntity:
+          type: array
+          items:
+            $ref: "#/components/schemas/Book"
+    JournalIssues:
+      type: array
+      items:
+        $ref: "#/components/schemas/Journal"
+    ReportRequest:
+      type: object
+      properties:
+        dateFrom:
+          type: string
+          format: date
+          example: 2014-07-05
+        dateTo:
+          type: string
+          format: date
+          example: 2024-07-05
