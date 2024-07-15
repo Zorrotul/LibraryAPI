@@ -11,7 +11,9 @@ import ru.ftc.library.api.jpa.AuthorEntity;
 import ru.ftc.library.api.jpa.AuthorRepository;
 import ru.ftc.library.api.model.Author;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j
@@ -23,24 +25,14 @@ public class AuthorServiceBean implements AuthorService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void createNewAuthor(Author newAuthor) {
-        AuthorEntity authorEntity = AuthorEntity.builder()
-                .name(newAuthor.getName())
-                .surname(newAuthor.getSurname())
-                .patronymic(newAuthor.getPatronymic())
-                .build();
-        try {
-            authorRepository.saveAndFlush(authorEntity);
-        } catch (Exception e) {
-            log.error("Cant create new author = {}, cause: {}", newAuthor, e.getMessage(), e);
-            throw new AuthorCreationException(e);
-        }
+    public Long findOrCreateNewAuthorAndGetId(Author newAuthor) {
+        return getAuthorId(newAuthor)
+                .orElseGet(() -> createNewAuthor(newAuthor).getId()
+                );
     }
 
-
     @Transactional(propagation = Propagation.REQUIRED)
-    @Override
-    public Long createAuthorAndGetId(Author newAuthor) {
+    public AuthorEntity createNewAuthor(Author newAuthor) {
         try {
             AuthorEntity authorEntity = AuthorEntity.builder()
                     .name(newAuthor.getName())
@@ -48,50 +40,37 @@ public class AuthorServiceBean implements AuthorService {
                     .patronymic(newAuthor.getPatronymic())
                     .build();
             authorRepository.saveAndFlush(authorEntity);
-            return authorRepository.findByNameAndSurnameAndPatronymic(
-                    authorEntity.getName(),
-                    authorEntity.getSurname(),
-                    authorEntity.getPatronymic()).get().getId();
+            return authorEntity;
         } catch (Exception e) {
-            log.error("Cant create new author = {}, cause: {}", newAuthor, e.getMessage(), e);
-            throw new AuthorCreationException(e); //TODO не выкидывать эксепшн в стриме
+            log.error("Cant create new author = {},\n exception ={},\n cause: {}", newAuthor, e.getClass(), e.getMessage() + "\n" + Arrays.toString(e.getStackTrace()));
+            throw new AuthorCreationException(e);
         }
     }
 
 
     @Transactional(propagation = Propagation.REQUIRED)
-    @Override
-    public Long createNewAuthorAndGetId(Author newAuthor) {
+    public Optional<Long> getAuthorId(Author author) {
         try {
             return authorRepository.findByNameAndSurnameAndPatronymic(
-                            newAuthor.getName(),
-                            newAuthor.getSurname(),
-                            newAuthor.getPatronymic())
+                            author.getName(),
+                            author.getSurname(),
+                            author.getPatronymic())
                     .map(a -> {
                         log.info("find author = {}", a);
                         return a;
                     })
                     .map(AuthorEntity::getId)
                     .map(a -> {
-                        log.info("find author = {} with id ={}", newAuthor, a);
+                        log.info("author id={}", a);
                         return a;
-                    })
-                    .orElseGet(() -> {
-                                try {
-                                    return createAuthorAndGetId(newAuthor);
-                                } catch (Exception e) {
-                                    throw new AuthorCreationException("!!!");
-                                }
-                            }
-                    );
-        } catch (DataAccessException | AuthorCreationException e) {
-            log.error("Author {} is already exist, {}", newAuthor, e.getMessage(), e);
-            throw new AuthorCreationException(e);
+                    });
+
         } catch (Exception e) {
-            log.error("Cant create new author 2 = {}, cause: {}", newAuthor, e.getMessage(), e);
-            throw new AuthorCreationException(e);
+            log.error("Cant findByNameAndSurnameAndPatronymic author = {}, cause: {}", e.getMessage(), e);
+            throw new AuthorCreationException(e); //TODO не выкидывать эксепшн в стриме
         }
     }
+
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override

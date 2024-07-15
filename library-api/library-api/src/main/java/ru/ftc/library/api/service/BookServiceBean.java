@@ -13,7 +13,6 @@ import ru.ftc.library.api.error.NoSuchBookException;
 import ru.ftc.library.api.jpa.BookEntity;
 import ru.ftc.library.api.jpa.BookRepository;
 import ru.ftc.library.api.model.AddBookRequest;
-import ru.ftc.library.api.model.Author;
 import ru.ftc.library.api.model.Book;
 import ru.ftc.library.api.model.BookAuthorLinks;
 
@@ -61,21 +60,17 @@ public class BookServiceBean implements BookService {
                     newBook.getTitle(),
                     newBook.getDateOfOPublication()).get().getId();
             log.info("book id = {}", bookId);
-            log.info("authors = {}", newBook.getAuthors());
-
             List<Long> authorIds = newBook.getAuthors().stream()
                     .peek(a -> log.info("authors  = {}", a))
                     .map(author -> {
-                        Long id = -1L;
+                        //Long id = -1L; //TODO как сделать нормально? как обрабатывать исключение в стриме?
                         try {
-                            id = authorService.createNewAuthorAndGetId(new Author(
-                                    author.getName(),
-                                    author.getSurname(),
-                                    author.getPatronymic()));
+                            return authorService.findOrCreateNewAuthorAndGetId(author);
                         } catch (AuthorCreationException e) {
                             log.error(e.getMessage());
+                            return -1L;
                         }
-                        return id;
+                        //return id;
                     })
                     .peek(a -> log.info("author Id = {}", a))
                     .peek(authorId -> {
@@ -96,6 +91,7 @@ public class BookServiceBean implements BookService {
         }
 
     }
+
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
@@ -129,7 +125,7 @@ public class BookServiceBean implements BookService {
 
     @Transactional(propagation = Propagation.REQUIRED)
     @Override
-    public void returnBookToLibrary(Long bookId){
+    public void returnBookToLibrary(Long bookId) {
         try {
             Optional<BookEntity> book = bookRepository.findById(bookId);
             book.map(bookEntity -> {
@@ -137,8 +133,8 @@ public class BookServiceBean implements BookService {
                         return bookEntity;
                     })
                     .ifPresent(bookRepository::saveAndFlush);
-        }catch (DataAccessException e){
-            throw new BookCreationException(String.format("returnBookToLibrary<- Cant return book to library", bookId));//TODO кидать другое исключение
+        } catch (DataAccessException e) {
+            throw new BookCreationException(String.format("returnBookToLibrary<- Cant return book with id= %s to library", bookId));//TODO кидать другое исключение
         }
     }
 }

@@ -6,11 +6,7 @@ import java.util.List;
 
 public interface AuthorService {
 
-    void createNewAuthor(Author newAuthor);
-
-    Long createAuthorAndGetId(Author newAuthor);
-
-    Long createNewAuthorAndGetId(Author newAuthor);
+    Long findOrCreateNewAuthorAndGetId(Author newAuthor);
 
     List<Author> getAllAuthors();
 }

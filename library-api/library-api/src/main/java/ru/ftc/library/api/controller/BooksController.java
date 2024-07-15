@@ -21,9 +21,14 @@ public class BooksController {
 
     @PostMapping("/addBook/")
     @ResponseStatus(HttpStatus.CREATED)
-    void addBook(@RequestBody @Valid AddBookRequest newBook) {
-        log.info("addBook <- newBook = {}", newBook);
-        bookService.addNewBookToLibrary(newBook);
+    ResponseEntity<String> addBook(@RequestBody @Valid AddBookRequest newBook) {
+        try {
+            log.info("addBook <- newBook = {}", newBook);
+            bookService.addNewBookToLibrary(newBook);
+            return new ResponseEntity<>(HttpStatus.CREATED.getReasonPhrase(), HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_GATEWAY.getReasonPhrase(), HttpStatus.BAD_GATEWAY);
+        }
     }
 
     @GetMapping("/getBook/{id}")
@@ -37,21 +42,6 @@ public class BooksController {
             throw new BookCreationException(e);
         }
     }
-
-//    @GetMapping("/getBook/")
-//    @ResponseStatus(HttpStatus.OK)
-//    ResponseEntity<Book> getBook(@RequestBody Long id) {
-//        log.info("getBook <-");
-//
-//        try {
-//            Book book = bookService.getBookById(id);
-//            return new ResponseEntity<>(book, HttpStatus.OK);
-//        } catch (RuntimeException e) {
-//            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//        }
-//    }
-
-
 }
 
 
