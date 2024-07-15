@@ -16,6 +16,91 @@ tags:
     description: Operations with book
 
 paths:
+  /booksIssueJn/addBooksIssueJn/:
+    post:
+      tags:
+        - journal
+      summary: get book from library
+      operationId: getBook
+      requestBody:
+        description: Add a new book to library
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetReportRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/AddJournalIssueResponse'
+        '400':
+          description: Something wrong
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+  /booksIssueJn/returnBook/:
+    post:
+      tags:
+        - journal
+      summary: Return book to library
+      operationId: returnBook
+      requestBody:
+        description: Add a new book to library
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetReportRequest'
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ReturnJournalIssueResponse'
+        '400':
+          description: Something wrong
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Error'
+  /booksIssueJn/getReport/:
+    get:
+      tags:
+        - journal
+      summary: get report from journal
+      operationId: getReport
+      parameters:
+        - name: dateFrom
+          in: query
+          description: Date from
+          required: true
+          schema:
+            type: string
+        - name: dateTo
+          in: query
+          description: Date to
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/JournalIssues'
+
   /books/addBook/:
     post:
       tags:
@@ -36,103 +121,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/BookEnt"
+                $ref: "#/components/schemas/CreatedResponse"
         '400':
           description: error
           content:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
-  /booksIssueJn/addBooksIssueJn/:
-    post:
-      tags:
-        - journal
-      summary: get book from library
-      operationId: getBook
-      parameters:
-        - name: bookId
-          in: query
-          description: Id taken book
-          required: false
-          schema:
-            type: string
-        - name: readerId
-          in: query
-          description: Id reader who take book
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Journal'
-        '400':
-          description: Something wrong
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Error'
-  /booksIssueJn/returnBook/:
-    post:
-      tags:
-        - journal
-      summary: Return book to library
-      operationId: returnBook
-      parameters:
-        - name: bookId
-          in: query
-          description: Id taken book
-          required: false
-          schema:
-            type: string
-        - name: readerId
-          in: query
-          description: Id reader who take book
-          required: false
-          schema:
-            type: string
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Journal'
-        '400':
-          description: Something wrong
-          content:
-            application/json:
-              schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/Error'
-  /booksIssueJn/getReport/:
-    get:
-      tags:
-        - journal
-      summary: get report from journal
-      operationId: getReport
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/ReportRequest"
-      responses:
-        '200':
-          description: successful operation
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/JournalIssues'
+
   /readers/addReader/:
     post:
       tags:
@@ -151,7 +147,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/ReaderEnt"
+                $ref: "#/components/schemas/CreatedResponse"
         '400':
           description: error
           content:
@@ -357,3 +353,66 @@ components:
           type: string
           format: date
           example: 2024-07-05
+    GetReportRequest:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+          example: 10
+        readerId:
+          type: integer
+          format: int64
+          example: 2
+    AddJournalIssueResponse:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+          example: 10
+        readerId:
+          type: integer
+          format: int64
+          example: 2
+        dateOfIssue:
+          type: string
+          format: date-time
+          example: 2024-07-05T13:59:04.235636
+        dateOfReturn:
+          type: string
+          format: date-time
+          example: null
+    ReturnJournalIssueResponse:
+      type: object
+      properties:
+        bookId:
+          type: integer
+          format: int64
+          example: 10
+        readerId:
+          type: integer
+          format: int64
+          example: 2
+        dateOfIssue:
+          type: string
+          format: date-time
+          example: 2024-07-05T13:59:04.235636
+        dateOfReturn:
+          type: string
+          format: date-time
+          example: 2024-07-05T13:59:04.235636
+    CreatedResponse:
+      type: object
+      required:
+        - code
+        - message
+      properties:
+        code:
+          type: integer
+          example: 200
+        message:
+          type: string
+          example: Created
+
+
