@@ -16,7 +16,7 @@ import java.time.LocalDate;
 @Builder
 public class Book {
 
-    @NotBlank
+    @NotBlank(message = "title не должно быть пустым")
     private String title;
 
     @NotNull
