@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
-  title: Swagger Petstore - OpenAPI 3.0
-  description: |-
+  title: Library API
+  description: 'Task to be solved: Automation of library work'
   version: 1.0.11
 servers:
   - url: localhost:8080/
@@ -157,47 +157,6 @@ paths:
 
 components:
   schemas:
-    Report:
-      type: object
-      properties:
-        readerId:
-          type: integer
-          format: int64
-          example: 10
-        bookId:
-          type: integer
-          format: int64
-          example: 12
-        dateOfIssue:
-          type: string
-          format: date-time
-          example: 2024-07-05T13:59:04.235636
-        dateOfReturn:
-          type: string
-          format: date-time
-          example: 2024-07-05T13:59:04.235636
-    BookEnt:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 10
-        title:
-          type: string
-          example: Nos
-        dateOfOPublication:
-          type: string
-          format: date
-          example: 2024-07-05
-        numberOfOCopies:
-          type: integer
-          format: int64
-          example: 2
-        authors:
-          type: array
-          items:
-            $ref: "#/components/schemas/Author"
     Book:
       type: object
       properties:
@@ -216,26 +175,6 @@ components:
           type: array
           items:
             $ref: "#/components/schemas/Author"
-    Books:
-      type: array
-      items:
-        $ref: "#/components/schemas/Book"
-    AuthorEnt:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 11
-        name:
-          type: string
-          example: Anton
-        surname:
-          type: string
-          example: Chehov
-        patronymic:
-          type: string
-          example: Pavlovich
     Author:
       type: object
       properties:
@@ -244,39 +183,10 @@ components:
           example: Anton
         surname:
           type: string
-          example: Chehov
+          example: Chekhov
         patronymic:
           type: string
           example: Pavlovich
-    Authors:
-      type: array
-      items:
-        $ref: "#/components/schemas/Author"
-    ReaderEnt:
-      type: object
-      properties:
-        id:
-          type: integer
-          format: int64
-          example: 1
-        name:
-          type: string
-          example: Pip
-        surname:
-          type: string
-          example: Pop
-        patronymic:
-          type: string
-          example: Pap
-        Sex:
-          type: string
-          enum:
-            - M
-            - F
-        birthday:
-          type: string
-          format: date
-          example: 1996-06-12
     Reader:
       type: object
       properties:
@@ -310,7 +220,7 @@ components:
 
         message:
           type: string
-          example: Oups
+          example: Ops
     Journal:
       type: object
       properties:
@@ -342,17 +252,6 @@ components:
       type: array
       items:
         $ref: "#/components/schemas/Journal"
-    ReportRequest:
-      type: object
-      properties:
-        dateFrom:
-          type: string
-          format: date
-          example: 2014-07-05
-        dateTo:
-          type: string
-          format: date
-          example: 2024-07-05
     GetReportRequest:
       type: object
       properties:
