@@ -6,8 +6,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.ftc.library.api.jpa.BooksIssueJnEntity;
-import ru.ftc.library.api.model.entities.UpdateJnIssueRequest;
-import ru.ftc.library.api.model.entities.GetReportRequest;
+import ru.ftc.library.api.model.UpdateJnIssueRequest;
+import ru.ftc.library.api.model.GetReportRequest;
 import ru.ftc.library.api.service.BooksIssueJnService;
 
 import java.util.List;

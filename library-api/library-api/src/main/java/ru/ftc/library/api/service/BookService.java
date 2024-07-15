@@ -2,8 +2,8 @@ package ru.ftc.library.api.service;
 
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import ru.ftc.library.api.model.entities.AddBookRequest;
-import ru.ftc.library.api.model.entities.Book;
+import ru.ftc.library.api.model.AddBookRequest;
+import ru.ftc.library.api.model.Book;
 
 public interface BookService {
     void addNewBookToLibrary(AddBookRequest newBook);

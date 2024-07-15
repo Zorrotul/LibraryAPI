@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.ftc.library.api.error.BookAuthorLinksCreationException;
 import ru.ftc.library.api.jpa.BookAuthorLinksEntity;
 import ru.ftc.library.api.jpa.BookAuthorLinksRepository;
-import ru.ftc.library.api.model.entities.BookAuthorLinks;
+import ru.ftc.library.api.model.BookAuthorLinks;
 
 @Slf4j
 @RequiredArgsConstructor

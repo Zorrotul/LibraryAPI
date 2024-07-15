@@ -12,10 +12,10 @@ import ru.ftc.library.api.error.BookCreationException;
 import ru.ftc.library.api.error.NoSuchBookException;
 import ru.ftc.library.api.jpa.BookEntity;
 import ru.ftc.library.api.jpa.BookRepository;
-import ru.ftc.library.api.model.entities.AddBookRequest;
-import ru.ftc.library.api.model.entities.Author;
-import ru.ftc.library.api.model.entities.Book;
-import ru.ftc.library.api.model.entities.BookAuthorLinks;
+import ru.ftc.library.api.model.AddBookRequest;
+import ru.ftc.library.api.model.Author;
+import ru.ftc.library.api.model.Book;
+import ru.ftc.library.api.model.BookAuthorLinks;
 
 import java.util.List;
 import java.util.Optional;

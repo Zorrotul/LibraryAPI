@@ -1,4 +1,4 @@
-package ru.ftc.library.api.model.entities;
+package ru.ftc.library.api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.validation.constraints.NotBlank;

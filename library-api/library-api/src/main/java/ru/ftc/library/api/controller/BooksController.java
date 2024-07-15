@@ -7,8 +7,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.ftc.library.api.error.BookCreationException;
-import ru.ftc.library.api.model.entities.AddBookRequest;
-import ru.ftc.library.api.model.entities.Book;
+import ru.ftc.library.api.model.AddBookRequest;
+import ru.ftc.library.api.model.Book;
 import ru.ftc.library.api.service.BookService;
 
 @RequiredArgsConstructor

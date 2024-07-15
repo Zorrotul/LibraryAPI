@@ -1,7 +1,6 @@
-package ru.ftc.library.api.model.entities;
+package ru.ftc.library.api.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,20 +13,13 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class JournalEntry {
+public class BooksIssueJnResponse {
 
+    @NotNull
+    private Long bookId;
 
-    @NotBlank
-    private String name;
-
-    @NotBlank
-    private String surname;
-
-    @NotBlank
-    private String patronymic;
-
-    @NotBlank
-    private String title;
+    @NotNull
+    private Long readerId;
 
     @NotNull
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
@@ -35,4 +27,5 @@ public class JournalEntry {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime dateOfReturn;
+
 }

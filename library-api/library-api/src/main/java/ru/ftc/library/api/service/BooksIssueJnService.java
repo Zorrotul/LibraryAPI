@@ -1,7 +1,7 @@
 package ru.ftc.library.api.service;
 
 import ru.ftc.library.api.jpa.BooksIssueJnEntity;
-import ru.ftc.library.api.model.entities.UpdateJnIssueRequest;
+import ru.ftc.library.api.model.UpdateJnIssueRequest;
 
 import java.time.LocalDate;
 import java.util.List;

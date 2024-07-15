@@ -9,7 +9,7 @@ import ru.ftc.library.api.error.BookCreationException;
 import ru.ftc.library.api.error.BooksIssueJnCreationException;
 import ru.ftc.library.api.jpa.BooksIssueJnEntity;
 import ru.ftc.library.api.jpa.BooksIssueJnRepository;
-import ru.ftc.library.api.model.entities.UpdateJnIssueRequest;
+import ru.ftc.library.api.model.UpdateJnIssueRequest;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -34,6 +34,7 @@ public class BooksIssueJnServiceBean implements BooksIssueJnService {
         BooksIssueJnEntity booksIssueJnEntity;
         try {
             bookService.removeOneBookCopyById(newJournal.getBookId());
+
             booksIssueJnEntity = BooksIssueJnEntity.builder()
                     .bookId(newJournal.getBookId())
                     .readerId(newJournal.getReaderId())
